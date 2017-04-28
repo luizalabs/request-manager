@@ -1,0 +1,6 @@
+bumpversion==0.5.3
+flake8==3.0.2
+pytest==3.0.7
+pytest-cov==2.4.0
+mock==2.0.0
+requests==2.13.0

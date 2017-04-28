@@ -1,0 +1,65 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: alpine:3.5
+    working_directory: "~/request_manager/"
+    steps:
+      - run:
+            name: Install curl
+            command: apk add --update curl
+      - run:
+            name: Trigger Jobs
+            command: |
+              function trigger_job() {
+                job_name=$1
+                curl --user ${CIRCLE_API_TOKEN}: \
+                  --data build_parameters[CIRCLE_JOB]=$job_name \
+                  --data revision=$CIRCLE_SHA1 \
+                  https://circleci.com/api/v1.1/project/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/tree/$CIRCLE_BRANCH
+              }
+
+              trigger_job build-python27
+              trigger_job build-python34
+  build-python34:
+    docker:
+      - image: python:3.4.3
+    working_directory: "~/request_manager_py34/"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ .Branch }}
+            - cache-master
+      - run:
+          name: Install Dependencies
+          command: make requirements-pip
+      - save_cache:
+          key: cache-{{ .Branch }}
+          paths:
+            - "~/.cache/pip"
+            - "~/.apt-cache"
+      - run:
+          name: Unit tests
+          command: make test
+  build-python27:
+    docker:
+      - image: python:2.7.13
+    working_directory: "~/request_manager_py27/"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - cache-{{ .Branch }}
+            - cache-master
+      - run:
+          name: Install Dependencies
+          command: make requirements-pip
+      - save_cache:
+          key: cache-{{ .Branch }}
+          paths:
+            - "~/.cache/pip"
+            - "~/.apt-cache"
+      - run:
+          name: Unit tests
+          command: make test
