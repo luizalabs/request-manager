@@ -11,7 +11,7 @@ from .exceptions import (
 logger = logging.getLogger('requests')
 
 MAX_RETRIES = 5
-RETRY_INTERVAL = 0
+RETRY_INTERVAL = 1
 
 
 def get_method_function(method):
