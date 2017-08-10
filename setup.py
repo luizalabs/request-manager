@@ -13,7 +13,6 @@ setup(
     description=(
         'Generic HTTP Request'
     ),
-    long_description=read('README.rst'),
     author='LuizaLabs',
     author_email='pypi@luizalabs.com',
     url='https://github.com/luizalabs/request-manager',
@@ -21,7 +20,7 @@ setup(
     install_requires=[
         'requests>=2.4.3',
     ],
-    packages=['request-manager'],
+    packages=['request_manager'],
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
