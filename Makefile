@@ -28,4 +28,4 @@ fix-python-import:
 
 requirements-pip:
 	@pip install --upgrade pip
-	@pip install -r requirements-dev.txt
+	@pip install -U -r requirements-dev.txt

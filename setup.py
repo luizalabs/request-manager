@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
     name='request-manager',
-    version='0.0.2',
+    version='0.0.3',
     description=(
         'Generic HTTP Request'
     ),
@@ -18,7 +18,7 @@ setup(
     url='https://github.com/luizalabs/request-manager',
     keywords='http requests',
     install_requires=[
-        'requests>=2.4.3',
+        'requests[security]==2.19.1',
     ],
     packages=['request_manager'],
     classifiers=[
